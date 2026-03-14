@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Project-S</title>
+<style>
+body{
+background:black;
+color:white;
+font-family:Arial;
+text-align:center;
+padding-top:120px;
+}
+h1{font-size:60px;}
+p{font-size:20px;}
+</style>
+</head>
+
+<body>
+
+<h1>PROJECT-S</h1>
+
+<p>Something powerful is being built.</p>
+
+<p>No hype.<br>
+No noise.<br>
+Just signal.</p>
+
+<p>🚀 Coming Soon</p>
+
+</body>
+</html>

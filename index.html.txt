@@ -1,31 +1,1305 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Project-S</title>
-<style>
-body{
-background:black;
-color:white;
-font-family:Arial;
-text-align:center;
-padding-top:120px;
-}
-h1{font-size:60px;}
-p{font-size:20px;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S-PROJECT | Coming Soon</title>
+  <meta
+    name="description"
+    content="S-Project is a long-term blockchain vision powered by Sakkemoto. Community launches begin in 2026, with a native chain vision for 2027."
+  />
+  <style>
+    :root{
+      --bg:#05070b;
+      --bg2:#0a0f17;
+      --bg3:#0f1622;
+      --card:rgba(16,22,34,.78);
+      --line:rgba(255,255,255,.08);
+      --line-strong:rgba(255,255,255,.14);
+      --text:#f4f7fb;
+      --muted:#aeb8c8;
+      --muted2:#8d98ac;
+      --red:#ff3b2f;
+      --red2:#ff7a3d;
+      --gold:#f7b733;
+      --cyan:#63e6ff;
+      --violet:#8f7cff;
+      --shadow:0 20px 60px rgba(0,0,0,.45);
+      --shadow-soft:0 10px 30px rgba(0,0,0,.28);
+      --radius:26px;
+      --max:1200px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,59,47,.12), transparent 22%),
+        radial-gradient(circle at 85% 0%, rgba(99,230,255,.10), transparent 20%),
+        radial-gradient(circle at 50% 30%, rgba(143,124,255,.08), transparent 28%),
+        linear-gradient(180deg, #05070b 0%, #0a0f17 45%, #071019 100%);
+      min-height:100vh;
+      overflow-x:hidden;
+      position:relative;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    .wrap{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:2;
+    }
+
+    /* animated background */
+    .bg-grid,
+    .bg-particles,
+    .bg-glow{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .bg-grid{
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.7), transparent 92%);
+      opacity:.35;
+    }
+
+    .bg-glow::before,
+    .bg-glow::after{
+      content:"";
+      position:absolute;
+      width:540px;
+      height:540px;
+      border-radius:50%;
+      filter:blur(80px);
+      animation:floatGlow 14s ease-in-out infinite;
+    }
+
+    .bg-glow::before{
+      top:-120px;
+      left:-120px;
+      background:rgba(255,59,47,.16);
+    }
+
+    .bg-glow::after{
+      right:-120px;
+      top:80px;
+      background:rgba(99,230,255,.10);
+      animation-delay:-7s;
+    }
+
+    .bg-particles span{
+      position:absolute;
+      width:3px;
+      height:3px;
+      border-radius:50%;
+      background:rgba(255,255,255,.5);
+      box-shadow:0 0 14px rgba(99,230,255,.45);
+      animation:particleMove linear infinite;
+    }
+
+    .bg-particles span:nth-child(1){left:8%; top:90%; animation-duration:17s; animation-delay:-2s;}
+    .bg-particles span:nth-child(2){left:18%; top:78%; animation-duration:22s; animation-delay:-8s;}
+    .bg-particles span:nth-child(3){left:27%; top:88%; animation-duration:19s; animation-delay:-4s;}
+    .bg-particles span:nth-child(4){left:39%; top:93%; animation-duration:26s; animation-delay:-12s;}
+    .bg-particles span:nth-child(5){left:52%; top:84%; animation-duration:18s; animation-delay:-6s;}
+    .bg-particles span:nth-child(6){left:64%; top:96%; animation-duration:24s; animation-delay:-9s;}
+    .bg-particles span:nth-child(7){left:73%; top:87%; animation-duration:21s; animation-delay:-3s;}
+    .bg-particles span:nth-child(8){left:84%; top:92%; animation-duration:27s; animation-delay:-11s;}
+    .bg-particles span:nth-child(9){left:92%; top:80%; animation-duration:20s; animation-delay:-7s;}
+    .bg-particles span:nth-child(10){left:46%; top:89%; animation-duration:23s; animation-delay:-5s;}
+
+    @keyframes particleMove{
+      0%{transform:translateY(0) scale(1); opacity:0}
+      10%{opacity:.7}
+      90%{opacity:.25}
+      100%{transform:translateY(-110vh) scale(1.8); opacity:0}
+    }
+
+    @keyframes floatGlow{
+      0%,100%{transform:translate(0,0) scale(1)}
+      50%{transform:translate(25px,35px) scale(1.08)}
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:blur(14px);
+      background:rgba(5,7,11,.56);
+      border-bottom:1px solid var(--line);
+    }
+
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      letter-spacing:.08em;
+    }
+
+    .brand img{
+      width:46px;
+      height:46px;
+      object-fit:contain;
+      padding:4px;
+      border-radius:50%;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      box-shadow:0 0 25px rgba(255,59,47,.18);
+    }
+
+    .nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+
+    .nav a{
+      padding:10px 14px;
+      color:var(--muted);
+      border-radius:999px;
+      transition:.2s ease;
+    }
+
+    .nav a:hover{
+      color:#fff;
+      background:rgba(255,255,255,.07);
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 20px;
+      border-radius:999px;
+      font-weight:700;
+      transition:.2s ease;
+      border:1px solid transparent;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background:linear-gradient(90deg, var(--red), var(--red2));
+      color:#fff;
+      box-shadow:0 10px 30px rgba(255,59,47,.25);
+    }
+
+    .btn-primary:hover{transform:translateY(-2px)}
+    .btn-secondary{
+      color:#fff;
+      background:rgba(255,255,255,.05);
+      border-color:var(--line);
+    }
+
+    .btn-secondary:hover{
+      background:rgba(255,255,255,.09);
+      transform:translateY(-2px);
+    }
+
+    .hero{
+      padding:78px 0 32px;
+      position:relative;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:34px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      color:#ffd5cf;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.09em;
+      font-weight:800;
+      box-shadow:var(--shadow-soft);
+    }
+
+    h1{
+      margin:18px 0 16px;
+      font-size:clamp(42px, 7vw, 86px);
+      line-height:.95;
+      letter-spacing:-.045em;
+    }
+
+    .gradient{
+      background:linear-gradient(90deg, #ffffff 6%, #ffd8cf 30%, #ff7a3d 64%, #63e6ff 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .lead{
+      font-size:clamp(17px, 2vw, 21px);
+      line-height:1.7;
+      color:var(--muted);
+      max-width:760px;
+      margin:0 0 14px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:26px;
+    }
+
+    .powered{
+      margin-top:18px;
+      color:#d4dae6;
+      font-size:14px;
+    }
+
+    .powered strong{color:#fff}
+
+    .hero-card{
+      position:relative;
+      overflow:hidden;
+      min-height:620px;
+      border-radius:32px;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at top, rgba(255,59,47,.18), transparent 26%),
+        radial-gradient(circle at bottom right, rgba(99,230,255,.09), transparent 25%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      padding:24px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      isolation:isolate;
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(transparent 0 49%, rgba(255,255,255,.025) 50%, transparent 51%) center/100% 44px,
+        linear-gradient(90deg, transparent 0 49%, rgba(255,255,255,.025) 50%, transparent 51%) center/44px 100%;
+      opacity:.22;
+      z-index:0;
+    }
+
+    .hero-card::after{
+      content:"";
+      position:absolute;
+      width:420px;
+      height:420px;
+      border-radius:50%;
+      right:-120px;
+      top:-80px;
+      background:radial-gradient(circle, rgba(255,59,47,.22), transparent 65%);
+      filter:blur(18px);
+      z-index:0;
+      animation:floatGlow 12s ease-in-out infinite;
+    }
+
+    .main-logo{
+      position:relative;
+      z-index:1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding-top:10px;
+      min-height:400px;
+    }
+
+    .owl-halo{
+      position:absolute;
+      width:360px;
+      height:360px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle, rgba(255,84,62,.20) 0%, rgba(255,84,62,.10) 36%, rgba(99,230,255,.06) 56%, transparent 72%);
+      filter:blur(8px);
+      animation:pulseHalo 4.4s ease-in-out infinite;
+      box-shadow:
+        0 0 60px rgba(255,59,47,.18),
+        0 0 120px rgba(99,230,255,.08);
+    }
+
+    .owl-ring{
+      position:absolute;
+      width:420px;
+      height:420px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.08);
+      animation:spinSlow 24s linear infinite;
+    }
+
+    .owl-ring::before,
+    .owl-ring::after{
+      content:"";
+      position:absolute;
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:linear-gradient(135deg, var(--cyan), #fff);
+      box-shadow:0 0 20px rgba(99,230,255,.55);
+    }
+
+    .owl-ring::before{top:36px; left:72px}
+    .owl-ring::after{right:66px; bottom:48px}
+
+    .owl{
+      position:relative;
+      z-index:2;
+      width:min(100%, 380px);
+      filter:
+        drop-shadow(0 0 10px rgba(255,140,100,.18))
+        drop-shadow(0 0 26px rgba(255,59,47,.26))
+        drop-shadow(0 18px 40px rgba(0,0,0,.46));
+      animation:owlFloat 5.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseHalo{
+      0%,100%{transform:scale(1); opacity:.85}
+      50%{transform:scale(1.08); opacity:1}
+    }
+
+    @keyframes spinSlow{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
+
+    @keyframes owlFloat{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-10px)}
+    }
+
+    .power-box{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      border:1px solid var(--line);
+      background:rgba(12,18,28,.88);
+      border-radius:22px;
+      padding:16px 18px;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .power-left{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:0;
+    }
+
+    .fox{
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      object-fit:cover;
+      background:#101622;
+      padding:3px;
+      border:1px solid var(--line);
+      box-shadow:0 0 16px rgba(255,183,51,.12);
+      flex:0 0 auto;
+    }
+
+    .power-text small{
+      display:block;
+      color:var(--muted);
+      margin-bottom:4px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-weight:700;
+      font-size:11px;
+    }
+
+    .power-text strong{
+      display:block;
+      font-size:17px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .power-link{
+      color:#ffbea7;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .section{
+      padding:58px 0 0;
+      position:relative;
+      z-index:2;
+    }
+
+    .section h2{
+      margin:0 0 12px;
+      font-size:clamp(28px, 4vw, 42px);
+      letter-spacing:-.03em;
+    }
+
+    .section p{
+      margin:0;
+      line-height:1.7;
+      color:var(--muted);
+    }
+
+    .countdown-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-top:26px;
+    }
+
+    .countdown-card{
+      position:relative;
+      padding:24px;
+      border-radius:26px;
+      border:1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .countdown-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(120deg, transparent, rgba(255,255,255,.04), transparent);
+      transform:translateX(-100%);
+      animation:sheen 7s linear infinite;
+    }
+
+    @keyframes sheen{
+      0%{transform:translateX(-100%)}
+      100%{transform:translateX(160%)}
+    }
+
+    .phase{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      color:#ffd9d1;
+      font-size:12px;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+      font-weight:800;
+      margin-bottom:14px;
+      position:relative;
+      z-index:1;
+    }
+
+    .countdown-card h3{
+      margin:0 0 10px;
+      font-size:30px;
+      letter-spacing:-.03em;
+      position:relative;
+      z-index:1;
+    }
+
+    .countdown-card p{
+      margin:0 0 18px;
+      position:relative;
+      z-index:1;
+    }
+
+    .timer{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:12px;
+      position:relative;
+      z-index:1;
+    }
+
+    .time-box{
+      background:rgba(9,14,23,.92);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px 10px;
+      text-align:center;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .time-box .num{
+      display:block;
+      font-size:clamp(26px, 4vw, 40px);
+      font-weight:800;
+      line-height:1;
+      color:#fff;
+    }
+
+    .time-box .label{
+      display:block;
+      margin-top:8px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:11px;
+      font-weight:700;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+      margin-top:24px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(10px);
+    }
+
+    .step{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:linear-gradient(135deg, var(--red), var(--red2));
+      font-weight:800;
+      margin-bottom:14px;
+      box-shadow:0 10px 20px rgba(255,59,47,.2);
+    }
+
+    .card h3{
+      margin:0 0 10px;
+      font-size:24px;
+      letter-spacing:-.03em;
+    }
+
+    .highlight{
+      color:#fff;
+      font-weight:700;
+    }
+
+    .transform-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-top:24px;
+      align-items:stretch;
+    }
+
+    .transform-card,
+    .blog-card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(10px);
+      min-height:100%;
+    }
+
+    .transform-card h3,
+    .blog-card h3{
+      margin:0 0 12px;
+      font-size:24px;
+      letter-spacing:-.03em;
+    }
+
+    .morph-stage{
+      position:relative;
+      min-height:350px;
+      margin-top:10px;
+      border-radius:22px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,.04), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+    }
+
+    .morph-lines{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(transparent 0 49%, rgba(255,255,255,.025) 50%, transparent 51%) center/100% 36px,
+        linear-gradient(90deg, transparent 0 49%, rgba(255,255,255,.025) 50%, transparent 51%) center/36px 100%;
+      opacity:.28;
+    }
+
+    .morph-core{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .morph-halo{
+      position:absolute;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,183,51,.12), rgba(255,59,47,.12), transparent 72%);
+      filter:blur(10px);
+      animation:pulseHalo 3.8s ease-in-out infinite;
+    }
+
+    .morph-fox,
+    .morph-owl{
+      position:absolute;
+      width:150px;
+      height:150px;
+      object-fit:contain;
+      border-radius:50%;
+      background:rgba(11,16,24,.65);
+      border:1px solid rgba(255,255,255,.08);
+      padding:14px;
+      box-shadow:0 16px 40px rgba(0,0,0,.35);
+    }
+
+    .morph-fox{
+      animation:foxToCenter 6s ease-in-out infinite;
+    }
+
+    .morph-owl{
+      animation:owlFromCenter 6s ease-in-out infinite;
+      opacity:0;
+      transform:scale(.68);
+    }
+
+    .morph-arrow{
+      position:absolute;
+      width:220px;
+      height:2px;
+      background:linear-gradient(90deg, rgba(255,183,51,.2), rgba(255,255,255,.7), rgba(99,230,255,.3));
+      box-shadow:0 0 22px rgba(99,230,255,.22);
+      animation:beamPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes foxToCenter{
+      0%{transform:translateX(-120px) scale(1); opacity:1}
+      35%{transform:translateX(-18px) scale(.88); opacity:.92}
+      50%{transform:translateX(0) scale(.72); opacity:.28}
+      100%{transform:translateX(-120px) scale(1); opacity:1}
+    }
+
+    @keyframes owlFromCenter{
+      0%{transform:translateX(120px) scale(.68); opacity:0}
+      40%{transform:translateX(30px) scale(.84); opacity:.4}
+      50%{transform:translateX(0) scale(1); opacity:1}
+      85%{transform:translateX(120px) scale(1.04); opacity:.95}
+      100%{transform:translateX(120px) scale(.68); opacity:0}
+    }
+
+    @keyframes beamPulse{
+      0%,100%{opacity:.18; transform:scaleX(.72)}
+      50%{opacity:1; transform:scaleX(1)}
+    }
+
+    .transform-copy{
+      margin-top:18px;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    .mission{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-top:24px;
+    }
+
+    .mission-box{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(10px);
+    }
+
+    .mission-box h3{
+      margin:0 0 12px;
+      font-size:24px;
+    }
+
+    .blog-list{
+      display:grid;
+      gap:14px;
+      margin-top:16px;
+    }
+
+    .blog-link{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      padding:16px 16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      transition:.2s ease;
+    }
+
+    .blog-link:hover{
+      transform:translateY(-2px);
+      background:rgba(255,255,255,.06);
+    }
+
+    .blog-link strong{
+      display:block;
+      margin-bottom:6px;
+      font-size:16px;
+    }
+
+    .blog-link span{
+      display:block;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.55;
+    }
+
+    .arrow{
+      color:#ffbea7;
+      font-weight:800;
+      flex:0 0 auto;
+      margin-top:2px;
+    }
+
+    .contacts{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:16px;
+      margin-top:24px;
+    }
+
+    .contact{
+      display:block;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:20px;
+      transition:.2s ease;
+      box-shadow:var(--shadow);
+      min-width:0;
+      backdrop-filter:blur(10px);
+    }
+
+    .contact:hover{
+      transform:translateY(-2px);
+      background:#141b29;
+    }
+
+    .contact small{
+      display:block;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:11px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .contact strong{
+      display:block;
+      font-size:18px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .footer{
+      padding:56px 0 60px;
+      color:var(--muted);
+      position:relative;
+      z-index:2;
+    }
+
+    .footer-box{
+      border-top:1px solid var(--line);
+      padding-top:26px;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .note{
+      font-size:13px;
+      color:#acb4c4;
+      max-width:860px;
+      line-height:1.7;
+    }
+
+    @media (max-width: 1020px){
+      .hero-grid,
+      .countdown-grid,
+      .cards,
+      .transform-grid,
+      .mission,
+      .contacts{
+        grid-template-columns:1fr;
+      }
+
+      .topbar-inner{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .hero-card{min-height:auto}
+      .timer{grid-template-columns:repeat(2, 1fr)}
+    }
+
+    @media (max-width: 560px){
+      .hero{padding-top:42px}
+      .hero-actions{flex-direction:column}
+      .btn{width:100%}
+      .power-box{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .timer{grid-template-columns:1fr 1fr}
+      .morph-fox,.morph-owl{
+        width:120px;
+        height:120px;
+      }
+      .morph-arrow{width:150px}
+    }
+  </style>
 </head>
-
 <body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="bg-particles">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
 
-<h1>PROJECT-S</h1>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <img src="https://sakkemoto.com/wp-content/uploads/2026/03/nowlogosproject.png" alt="S-Project owl logo">
+        <span>S-PROJECT</span>
+      </div>
 
-<p>Something powerful is being built.</p>
+      <nav class="nav">
+        <a href="#timeline">Timeline</a>
+        <a href="#vision">Vision</a>
+        <a href="#evolution">Evolution</a>
+        <a href="#blogs">Blogs</a>
+        <a href="#contact">Contact</a>
+        <a href="https://x.com/sakkemotocoin" target="_blank" rel="noopener">X</a>
+        <a href="https://t.me/sakkemotocoin" target="_blank" rel="noopener">Telegram</a>
+      </nav>
+    </div>
+  </header>
 
-<p>No hype.<br>
-No noise.<br>
-Just signal.</p>
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Coming Soon • Community First • Chain Later</div>
 
-<p>🚀 Coming Soon</p>
+          <h1>
+            From <span class="gradient">community energy</span><br>
+            to chain identity.
+          </h1>
 
+          <p class="lead">
+            <strong>S-Project</strong> is a long-term blockchain vision. The first ecosystem launches begin in
+            <strong>2026</strong> across known chains to build community, momentum, and reach. The larger ambition is a native
+            <strong>S-Project chain</strong> targeted for <strong>November 2027</strong>.
+          </p>
+
+          <p class="lead">
+            The fox represents the founding community through <strong>Sakkemoto</strong>. The owl represents the next stage:
+            structure, intelligence, infrastructure, and the future chain vision.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://t.me/sakkemotocoin" target="_blank" rel="noopener">Join Telegram</a>
+            <a class="btn btn-secondary" href="https://x.com/sakkemotocoin" target="_blank" rel="noopener">Follow on X</a>
+          </div>
+
+          <div class="powered">
+            Powered by <strong>Sakkemoto.com</strong> and its community.
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="main-logo">
+            <div class="owl-halo"></div>
+            <div class="owl-ring"></div>
+            <img
+              class="owl"
+              src="https://sakkemoto.com/wp-content/uploads/2026/03/nowlogosproject.png"
+              alt="S-Project owl logo">
+          </div>
+
+          <div class="power-box">
+            <div class="power-left">
+              <img
+                class="fox"
+                src="https://sakkemoto.com/wp-content/uploads/2025/12/sakkemotologo_imresizer.jpg"
+                alt="Sakkemoto secondary logo">
+              <div class="power-text">
+                <small>Powered by</small>
+                <strong>Sakkemoto Community</strong>
+              </div>
+            </div>
+
+            <a class="power-link" href="https://sakkemoto.com" target="_blank" rel="noopener">sakkemoto.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="timeline">
+      <div class="wrap">
+        <h2>Two-phase roadmap countdown</h2>
+        <p>
+          S-Project begins with community-first launches, then builds toward the native chain vision.
+        </p>
+
+        <div class="countdown-grid">
+          <div class="countdown-card">
+            <div class="phase">Phase 1</div>
+            <h3>Community Launches</h3>
+            <p>
+              Early launches across known ecosystems to grow the base, strengthen the brand, and expand the community.
+            </p>
+
+            <div class="timer">
+              <div class="time-box">
+                <span class="num" id="days1">00</span>
+                <span class="label">Days</span>
+              </div>
+              <div class="time-box">
+                <span class="num" id="hours1">00</span>
+                <span class="label">Hours</span>
+              </div>
+              <div class="time-box">
+                <span class="num" id="minutes1">00</span>
+                <span class="label">Minutes</span>
+              </div>
+              <div class="time-box">
+                <span class="num" id="seconds1">00</span>
+                <span class="label">Seconds</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="countdown-card">
+            <div class="phase">Phase 2</div>
+            <h3>Native Chain Vision</h3>
+            <p>
+              The long-term goal: a bigger blockchain identity, stronger infrastructure, and the S-Project chain.
+            </p>
+
+            <div class="timer">
+              <div class="time-box">
+                <span class="num" id="days2">00</span>
+                <span class="label">Days</span>
+              </div>
+              <div class="time-box">
+                <span class="num" id="hours2">00</span>
+                <span class="label">Hours</span>
+              </div>
+              <div class="time-box">
+                <span class="num" id="minutes2">00</span>
+                <span class="label">Minutes</span>
+              </div>
+              <div class="time-box">
+                <span class="num" id="seconds2">00</span>
+                <span class="label">Seconds</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="vision">
+      <div class="wrap">
+        <h2>How S-Project starts</h2>
+        <p>
+          The goal is not to rush. The goal is to build the right base first, then scale into something larger.
+        </p>
+
+        <div class="cards">
+          <article class="card">
+            <div class="step">1</div>
+            <h3>2026 Foundation</h3>
+            <p>
+              Community-focused launches begin on established chains and ecosystems. These early steps build awareness,
+              trust, holders, and long-term momentum.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="step">2</div>
+            <h3>Expansion</h3>
+            <p>
+              The ecosystem grows through visibility, structure, and launch experience under the
+              <span class="highlight">Sakkemoto</span> umbrella.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="step">3</div>
+            <h3>November 2027</h3>
+            <p>
+              The long-term ambition is the native S-Project chain. The owl is the symbol of that phase:
+              infrastructure, precision, and a larger blockchain identity.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="evolution">
+      <div class="wrap">
+        <h2>Community to chain</h2>
+        <p>
+          The visual story of the ecosystem: the fox starts the movement, the owl represents the next stage.
+        </p>
+
+        <div class="transform-grid">
+          <div class="transform-card">
+            <h3>Fox → Owl transformation</h3>
+
+            <div class="morph-stage">
+              <div class="morph-lines"></div>
+              <div class="morph-core">
+                <div class="morph-halo"></div>
+                <div class="morph-arrow"></div>
+                <img
+                  class="morph-fox"
+                  src="https://sakkemoto.com/wp-content/uploads/2025/12/sakkemotologo_imresizer.jpg"
+                  alt="Sakkemoto fox">
+                <img
+                  class="morph-owl"
+                  src="https://sakkemoto.com/wp-content/uploads/2026/03/nowlogosproject.png"
+                  alt="S-Project owl">
+              </div>
+            </div>
+
+            <p class="transform-copy">
+              <strong>The fox built the community.</strong> <br>
+              <strong>The owl builds the chain vision.</strong> <br>
+              This is the transition from early momentum to long-term infrastructure.
+            </p>
+          </div>
+
+          <div class="mission-box">
+            <h3>Identity and ecosystem</h3>
+            <p style="margin-bottom:16px;">
+              The branding is intentionally split into two symbols:
+            </p>
+            <p style="margin-bottom:14px;">
+              <strong>The Owl</strong> — the main S-Project identity. It stands for architecture, precision, intelligence,
+              and the future blockchain.
+            </p>
+            <p>
+              <strong>The Fox</strong> — the Sakkemoto origin symbol. It represents the founding energy, the early
+              community, and the ecosystem powering the road ahead.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="blogs">
+      <div class="wrap">
+        <h2>Read the project vision on Sakkemoto</h2>
+        <p>
+          Explore the articles and roadmap pages connected to the project vision and long-term build. :contentReference[oaicite:1]{index=1}
+        </p>
+
+        <div class="transform-grid">
+          <div class="blog-card">
+            <h3>Featured project pages</h3>
+            <div class="blog-list">
+              <a class="blog-link" href="https://sakkemoto.com/sakkemotocoin-project-s-evolutionary/" target="_blank" rel="noopener">
+                <div>
+                  <strong>Building Wealth with Project S: A New Blockchain Initiative</strong>
+                  <span>Main Project S article covering the staged evolution from early launches toward the future chain.</span>
+                </div>
+                <div class="arrow">↗</div>
+              </a>
+
+              <a class="blog-link" href="https://sakkemoto.com/project-s-governance-explained/" target="_blank" rel="noopener">
+                <div>
+                  <strong>Understanding Project S Governance</strong>
+                  <span>Governance vision, ownership structure, and the move toward on-chain execution in 2027.</span>
+                </div>
+                <div class="arrow">↗</div>
+              </a>
+
+              <a class="blog-link" href="https://sakkemoto.com/beyond-the-coin/" target="_blank" rel="noopener">
+                <div>
+                  <strong>Beyond the Coin: The Sakkemoto 2027 Vision</strong>
+                  <span>Roadmap framing the fair launch phase, ecosystem growth, and longer-term vision.</span>
+                </div>
+                <div class="arrow">↗</div>
+              </a>
+
+              <a class="blog-link" href="https://sakkemoto.com/tag/project-s/" target="_blank" rel="noopener">
+                <div>
+                  <strong>Project S Blog Archive</strong>
+                  <span>Tag archive collecting Project S-related posts and updates in one place.</span>
+                </div>
+                <div class="arrow">↗</div>
+              </a>
+            </div>
+          </div>
+
+          <div class="blog-card">
+            <h3>Why these links matter</h3>
+            <p style="margin-bottom:14px;">
+              These links give visitors more context than a normal teaser page. They show that the project already has
+              written vision, structure, and long-term thinking behind it.
+            </p>
+            <p style="margin-bottom:14px;">
+              For a coming soon page, this is useful because people can do three things immediately:
+            </p>
+            <p>
+              <strong>1.</strong> Understand the bigger idea.<br>
+              <strong>2.</strong> Read the roadmap logic.<br>
+              <strong>3.</strong> Follow the community before later phases arrive.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap">
+        <h2>Stay connected</h2>
+        <p>
+          Follow the build, join the community, and stay ready for the next phase.
+        </p>
+
+        <div class="contacts">
+          <a class="contact" href="https://x.com/sakkemotocoin" target="_blank" rel="noopener">
+            <small>X / Social</small>
+            <strong>@sakkemotocoin</strong>
+          </a>
+
+          <a class="contact" href="https://t.me/sakkemotocoin" target="_blank" rel="noopener">
+            <small>Telegram</small>
+            <strong>SakkemotoCoin</strong>
+          </a>
+
+          <a class="contact" href="https://sakkemoto.com" target="_blank" rel="noopener">
+            <small>Website</small>
+            <strong>sakkemoto.com</strong>
+          </a>
+
+          <a class="contact" href="mailto:info@sakkemoto.com">
+            <small>Email</small>
+            <strong>info@sakkemoto.com</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-box">
+      <div>
+        <strong>S-PROJECT</strong><br>
+        Powered by Sakkemoto
+      </div>
+
+      <div class="note">
+        S-Project is presented as a long-term ecosystem vision. Development phases, launch timing, technical details,
+        and future chain structure may evolve over time as the project grows.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Set your countdown dates here
+    const phase1Date = new Date("2026-12-01T00:00:00").getTime();
+    const phase2Date = new Date("2027-11-01T00:00:00").getTime();
+
+    function updateTimer(targetDate, ids) {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        document.getElementById(ids.days).textContent = "00";
+        document.getElementById(ids.hours).textContent = "00";
+        document.getElementById(ids.minutes).textContent = "00";
+        document.getElementById(ids.seconds).textContent = "00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById(ids.days).textContent = String(days).padStart(2, "0");
+      document.getElementById(ids.hours).textContent = String(hours).padStart(2, "0");
+      document.getElementById(ids.minutes).textContent = String(minutes).padStart(2, "0");
+      document.getElementById(ids.seconds).textContent = String(seconds).padStart(2, "0");
+    }
+
+    function updateAllCountdowns() {
+      updateTimer(phase1Date, {
+        days: "days1",
+        hours: "hours1",
+        minutes: "minutes1",
+        seconds: "seconds1"
+      });
+
+      updateTimer(phase2Date, {
+        days: "days2",
+        hours: "hours2",
+        minutes: "minutes2",
+        seconds: "seconds2"
+      });
+    }
+
+    updateAllCountdowns();
+    setInterval(updateAllCountdowns, 1000);
+  </script>
 </body>
 </html>

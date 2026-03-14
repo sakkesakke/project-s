@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>S-PROJECT | Coming Soon</title>
+  <link rel="icon" type="image/png" href="https://sakkemoto.com/wp-content/uploads/2026/03/nowlogosproject.png">
   <meta
     name="description"
     content="S-Project is a long-term blockchain vision powered by Sakkemoto. Community launches begin in 2026, with a native chain vision for 2027."
@@ -14,6 +15,7 @@
       --bg2:#0a0f17;
       --bg3:#0f1622;
       --card:rgba(16,22,34,.78);
+      --card2:rgba(12,18,28,.88);
       --line:rgba(255,255,255,.08);
       --line-strong:rgba(255,255,255,.14);
       --text:#f4f7fb;
@@ -24,6 +26,7 @@
       --gold:#f7b733;
       --cyan:#63e6ff;
       --violet:#8f7cff;
+      --green:#4ade80;
       --shadow:0 20px 60px rgba(0,0,0,.45);
       --shadow-soft:0 10px 30px rgba(0,0,0,.28);
       --radius:26px;
@@ -56,10 +59,10 @@
       z-index:2;
     }
 
-    /* animated background */
     .bg-grid,
     .bg-particles,
-    .bg-glow{
+    .bg-glow,
+    .bg-nodes{
       position:fixed;
       inset:0;
       pointer-events:none;
@@ -119,6 +122,64 @@
     .bg-particles span:nth-child(8){left:84%; top:92%; animation-duration:27s; animation-delay:-11s;}
     .bg-particles span:nth-child(9){left:92%; top:80%; animation-duration:20s; animation-delay:-7s;}
     .bg-particles span:nth-child(10){left:46%; top:89%; animation-duration:23s; animation-delay:-5s;}
+
+    .bg-nodes svg{
+      width:100%;
+      height:100%;
+      opacity:.7;
+    }
+
+    .node{
+      fill:rgba(99,230,255,.9);
+      filter:drop-shadow(0 0 8px rgba(99,230,255,.4));
+      animation:pulseNode 4s ease-in-out infinite;
+    }
+
+    .node.red{
+      fill:rgba(255,90,66,.92);
+      filter:drop-shadow(0 0 8px rgba(255,90,66,.45));
+      animation-delay:-1.2s;
+    }
+
+    .node.gold{
+      fill:rgba(247,183,51,.95);
+      filter:drop-shadow(0 0 8px rgba(247,183,51,.4));
+      animation-delay:-2.1s;
+    }
+
+    .chain-line{
+      stroke:rgba(99,230,255,.16);
+      stroke-width:1.4;
+    }
+
+    .chain-line.red{
+      stroke:rgba(255,90,66,.14);
+    }
+
+    .flow{
+      fill:none;
+      stroke:rgba(255,255,255,.7);
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-dasharray:1 14;
+      animation:dashFlow 10s linear infinite;
+      opacity:.5;
+    }
+
+    .flow.red{
+      stroke:rgba(255,110,77,.8);
+      animation-duration:12s;
+    }
+
+    @keyframes dashFlow{
+      from{stroke-dashoffset:0}
+      to{stroke-dashoffset:-320}
+    }
+
+    @keyframes pulseNode{
+      0%,100%{transform:scale(1); opacity:.75}
+      50%{transform:scale(1.22); opacity:1}
+    }
 
     @keyframes particleMove{
       0%{transform:translateY(0) scale(1); opacity:0}
@@ -496,8 +557,7 @@
       content:"";
       position:absolute;
       inset:0;
-      background:
-        linear-gradient(120deg, transparent, rgba(255,255,255,.04), transparent);
+      background:linear-gradient(120deg, transparent, rgba(255,255,255,.04), transparent);
       transform:translateX(-100%);
       animation:sheen 7s linear infinite;
     }
@@ -574,6 +634,140 @@
       font-weight:700;
     }
 
+    .progress-card{
+      margin-top:26px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(10px);
+    }
+
+    .progress-top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .progress-title{
+      font-size:24px;
+      font-weight:800;
+      letter-spacing:-.03em;
+    }
+
+    .progress-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:#d7e0f0;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-weight:800;
+    }
+
+    .progress-wrap{
+      margin-top:14px;
+    }
+
+    .progress-bar{
+      position:relative;
+      height:18px;
+      border-radius:999px;
+      overflow:hidden;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      box-shadow:inset 0 1px 6px rgba(0,0,0,.25);
+    }
+
+    .progress-fill{
+      position:absolute;
+      inset:0 auto 0 0;
+      width:34%;
+      border-radius:999px;
+      background:
+        linear-gradient(90deg, var(--red), var(--red2) 45%, var(--gold) 75%, var(--cyan) 100%);
+      box-shadow:
+        0 0 20px rgba(255,122,61,.25),
+        inset 0 0 18px rgba(255,255,255,.18);
+      animation:progressGlow 3.8s ease-in-out infinite;
+    }
+
+    .progress-fill::after{
+      content:"";
+      position:absolute;
+      top:0; bottom:0; right:0;
+      width:70px;
+      background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.55), rgba(255,255,255,0));
+      transform:skewX(-18deg);
+      animation:progressSweep 2.8s linear infinite;
+    }
+
+    @keyframes progressGlow{
+      0%,100%{filter:brightness(1)}
+      50%{filter:brightness(1.15)}
+    }
+
+    @keyframes progressSweep{
+      from{transform:translateX(-90px) skewX(-18deg)}
+      to{transform:translateX(420px) skewX(-18deg)}
+    }
+
+    .progress-stages{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .stage{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px;
+    }
+
+    .stage.active{
+      border-color:rgba(255,122,61,.35);
+      background:rgba(255,122,61,.08);
+      box-shadow:0 0 0 1px rgba(255,122,61,.10) inset;
+    }
+
+    .stage.done{
+      border-color:rgba(99,230,255,.28);
+      background:rgba(99,230,255,.06);
+    }
+
+    .stage small{
+      display:block;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:11px;
+      font-weight:800;
+      margin-bottom:6px;
+    }
+
+    .stage strong{
+      display:block;
+      font-size:16px;
+      margin-bottom:6px;
+    }
+
+    .stage span{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+    }
+
     .cards{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
@@ -623,7 +817,8 @@
     }
 
     .transform-card,
-    .blog-card{
+    .blog-card,
+    .timeline-card{
       background:var(--card);
       border:1px solid var(--line);
       border-radius:24px;
@@ -634,7 +829,8 @@
     }
 
     .transform-card h3,
-    .blog-card h3{
+    .blog-card h3,
+    .timeline-card h3{
       margin:0 0 12px;
       font-size:24px;
       letter-spacing:-.03em;
@@ -737,25 +933,86 @@
       line-height:1.75;
     }
 
-    .mission{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:18px;
+    .timeline{
+      position:relative;
       margin-top:24px;
+      padding-left:28px;
     }
 
-    .mission-box{
-      background:var(--card);
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:8px;
+      top:10px;
+      bottom:10px;
+      width:3px;
+      background:linear-gradient(180deg, rgba(255,122,61,.55), rgba(99,230,255,.45));
+      border-radius:999px;
+      box-shadow:0 0 20px rgba(99,230,255,.12);
+    }
+
+    .timeline-item{
+      position:relative;
+      margin-bottom:18px;
+      padding:18px 18px 18px 22px;
       border:1px solid var(--line);
-      border-radius:24px;
-      padding:24px;
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(10px);
+      border-radius:20px;
+      background:rgba(255,255,255,.03);
+      box-shadow:var(--shadow-soft);
     }
 
-    .mission-box h3{
-      margin:0 0 12px;
-      font-size:24px;
+    .timeline-item:last-child{margin-bottom:0}
+
+    .timeline-item::before{
+      content:"";
+      position:absolute;
+      left:-28px;
+      top:24px;
+      width:17px;
+      height:17px;
+      border-radius:50%;
+      background:linear-gradient(135deg, var(--red), var(--red2));
+      border:3px solid #0b121d;
+      box-shadow:0 0 0 1px rgba(255,255,255,.05), 0 0 20px rgba(255,122,61,.22);
+    }
+
+    .timeline-item.future::before{
+      background:linear-gradient(135deg, var(--cyan), var(--violet));
+      box-shadow:0 0 0 1px rgba(255,255,255,.05), 0 0 20px rgba(99,230,255,.22);
+    }
+
+    .timeline-item.done::before{
+      background:linear-gradient(135deg, var(--green), var(--cyan));
+      box-shadow:0 0 0 1px rgba(255,255,255,.05), 0 0 20px rgba(74,222,128,.22);
+    }
+
+    .timeline-date{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      color:#dbe3f2;
+    }
+
+    .timeline-item h4{
+      margin:0 0 8px;
+      font-size:20px;
+      letter-spacing:-.02em;
+    }
+
+    .timeline-item p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.65;
+      font-size:15px;
     }
 
     .blog-list{
@@ -769,7 +1026,7 @@
       align-items:flex-start;
       justify-content:space-between;
       gap:14px;
-      padding:16px 16px;
+      padding:16px;
       border-radius:18px;
       border:1px solid var(--line);
       background:rgba(255,255,255,.03);
@@ -871,8 +1128,8 @@
       .countdown-grid,
       .cards,
       .transform-grid,
-      .mission,
-      .contacts{
+      .contacts,
+      .progress-stages{
         grid-template-columns:1fr;
       }
 
@@ -899,15 +1156,77 @@
         height:120px;
       }
       .morph-arrow{width:150px}
+      .timeline{padding-left:24px}
+      .timeline-item::before{left:-24px}
     }
   </style>
 </head>
 <body>
   <div class="bg-grid"></div>
   <div class="bg-glow"></div>
+
   <div class="bg-particles">
     <span></span><span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="bg-nodes" aria-hidden="true">
+    <svg viewBox="0 0 1440 1024" preserveAspectRatio="none">
+      <line class="chain-line" x1="100" y1="150" x2="280" y2="230"/>
+      <line class="chain-line red" x1="280" y1="230" x2="420" y2="120"/>
+      <line class="chain-line" x1="420" y1="120" x2="620" y2="220"/>
+      <line class="chain-line" x1="620" y1="220" x2="790" y2="150"/>
+      <line class="chain-line red" x1="790" y1="150" x2="980" y2="250"/>
+      <line class="chain-line" x1="980" y1="250" x2="1180" y2="140"/>
+      <line class="chain-line" x1="1180" y1="140" x2="1320" y2="220"/>
+
+      <line class="chain-line red" x1="160" y1="480" x2="330" y2="390"/>
+      <line class="chain-line" x1="330" y1="390" x2="520" y2="500"/>
+      <line class="chain-line" x1="520" y1="500" x2="700" y2="420"/>
+      <line class="chain-line red" x1="700" y1="420" x2="920" y2="520"/>
+      <line class="chain-line" x1="920" y1="520" x2="1110" y2="440"/>
+      <line class="chain-line" x1="1110" y1="440" x2="1300" y2="560"/>
+
+      <line class="chain-line" x1="80" y1="820" x2="260" y2="720"/>
+      <line class="chain-line red" x1="260" y1="720" x2="450" y2="830"/>
+      <line class="chain-line" x1="450" y1="830" x2="650" y2="720"/>
+      <line class="chain-line" x1="650" y1="720" x2="850" y2="820"/>
+      <line class="chain-line red" x1="850" y1="820" x2="1080" y2="700"/>
+      <line class="chain-line" x1="1080" y1="700" x2="1290" y2="820"/>
+
+      <line class="flow" x1="100" y1="150" x2="280" y2="230"/>
+      <line class="flow red" x1="420" y1="120" x2="620" y2="220"/>
+      <line class="flow" x1="790" y1="150" x2="980" y2="250"/>
+      <line class="flow red" x1="330" y1="390" x2="520" y2="500"/>
+      <line class="flow" x1="700" y1="420" x2="920" y2="520"/>
+      <line class="flow red" x1="260" y1="720" x2="450" y2="830"/>
+      <line class="flow" x1="850" y1="820" x2="1080" y2="700"/>
+
+      <circle class="node" cx="100" cy="150" r="5"/>
+      <circle class="node red" cx="280" cy="230" r="6"/>
+      <circle class="node gold" cx="420" cy="120" r="6"/>
+      <circle class="node" cx="620" cy="220" r="5"/>
+      <circle class="node red" cx="790" cy="150" r="6"/>
+      <circle class="node" cx="980" cy="250" r="5"/>
+      <circle class="node gold" cx="1180" cy="140" r="6"/>
+      <circle class="node" cx="1320" cy="220" r="5"/>
+
+      <circle class="node red" cx="160" cy="480" r="6"/>
+      <circle class="node" cx="330" cy="390" r="5"/>
+      <circle class="node gold" cx="520" cy="500" r="6"/>
+      <circle class="node" cx="700" cy="420" r="5"/>
+      <circle class="node red" cx="920" cy="520" r="6"/>
+      <circle class="node" cx="1110" cy="440" r="5"/>
+      <circle class="node gold" cx="1300" cy="560" r="6"/>
+
+      <circle class="node gold" cx="80" cy="820" r="6"/>
+      <circle class="node" cx="260" cy="720" r="5"/>
+      <circle class="node red" cx="450" cy="830" r="6"/>
+      <circle class="node" cx="650" cy="720" r="5"/>
+      <circle class="node gold" cx="850" cy="820" r="6"/>
+      <circle class="node red" cx="1080" cy="700" r="6"/>
+      <circle class="node" cx="1290" cy="820" r="5"/>
+    </svg>
   </div>
 
   <header class="topbar">
@@ -919,6 +1238,7 @@
 
       <nav class="nav">
         <a href="#timeline">Timeline</a>
+        <a href="#progress">Progress</a>
         <a href="#vision">Vision</a>
         <a href="#evolution">Evolution</a>
         <a href="#blogs">Blogs</a>
@@ -1051,6 +1371,49 @@
             </div>
           </div>
         </div>
+
+        <div class="progress-card" id="progress">
+          <div class="progress-top">
+            <div class="progress-title">Token launch progress</div>
+            <div class="progress-badge">Current Phase • Community Build</div>
+          </div>
+
+          <p>
+            A staged ecosystem build designed to grow community first, then infrastructure. Adjust the progress percentage in the code whenever the project advances.
+          </p>
+
+          <div class="progress-wrap">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <div class="progress-stages">
+            <div class="stage done">
+              <small>Stage 1</small>
+              <strong>Brand Origin</strong>
+              <span>Sakkemoto community, identity, and early narrative foundation.</span>
+            </div>
+
+            <div class="stage active">
+              <small>Stage 2</small>
+              <strong>Community Launches</strong>
+              <span>Multi-chain awareness, holders, and ecosystem growth through 2026.</span>
+            </div>
+
+            <div class="stage">
+              <small>Stage 3</small>
+              <strong>Infrastructure Build</strong>
+              <span>Chain architecture, governance planning, and ecosystem migration logic.</span>
+            </div>
+
+            <div class="stage">
+              <small>Stage 4</small>
+              <strong>Native Chain Vision</strong>
+              <span>S-Project chain target and long-term network identity in 2027.</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1120,25 +1483,48 @@
             </div>
 
             <p class="transform-copy">
-              <strong>The fox built the community.</strong> <br>
-              <strong>The owl builds the chain vision.</strong> <br>
+              <strong>The fox built the community.</strong><br>
+              <strong>The owl builds the chain vision.</strong><br>
               This is the transition from early momentum to long-term infrastructure.
             </p>
           </div>
 
-          <div class="mission-box">
-            <h3>Identity and ecosystem</h3>
-            <p style="margin-bottom:16px;">
-              The branding is intentionally split into two symbols:
-            </p>
-            <p style="margin-bottom:14px;">
-              <strong>The Owl</strong> — the main S-Project identity. It stands for architecture, precision, intelligence,
-              and the future blockchain.
-            </p>
-            <p>
-              <strong>The Fox</strong> — the Sakkemoto origin symbol. It represents the founding energy, the early
-              community, and the ecosystem powering the road ahead.
-            </p>
+          <div class="timeline-card">
+            <h3>Roadmap</h3>
+
+            <div class="timeline">
+              <div class="timeline-item done">
+                <div class="timeline-date">Origin</div>
+                <h4>Sakkemoto ecosystem foundation</h4>
+                <p>
+                  Establish the community identity, content ecosystem, early audience, and broader narrative that supports S-Project.
+                </p>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-date">2026 / Phase 1</div>
+                <h4>Community launches across known chains</h4>
+                <p>
+                  Build recognition, holders, liquidity attention, and community size through early ecosystem launches and visibility campaigns.
+                </p>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-date">2026 / Phase 2</div>
+                <h4>Infrastructure planning and ecosystem logic</h4>
+                <p>
+                  Refine the long-term S-Project model, governance direction, and the bridge between early ecosystem activity and native chain goals.
+                </p>
+              </div>
+
+              <div class="timeline-item future">
+                <div class="timeline-date">November 2027</div>
+                <h4>Native S-Project chain vision</h4>
+                <p>
+                  Move toward the larger blockchain identity: stronger infrastructure, ecosystem alignment, and long-term network expansion.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1148,41 +1534,42 @@
       <div class="wrap">
         <h2>Read the project vision on Sakkemoto</h2>
         <p>
-          Explore the articles and roadmap pages connected to the project vision and long-term build. :contentReference[oaicite:1]{index=1}
+          Explore the articles and roadmap pages connected to the S-Project vision and long-term build.
         </p>
 
         <div class="transform-grid">
           <div class="blog-card">
             <h3>Featured project pages</h3>
+
             <div class="blog-list">
-              <a class="blog-link" href="https://sakkemoto.com/sakkemotocoin-project-s-evolutionary/" target="_blank" rel="noopener">
+              <a class="blog-link" href="https://sakkemoto.com/sakkemoto-coin-sakke-official-fair-launch-community-token/" target="_blank" rel="noopener">
                 <div>
-                  <strong>Building Wealth with Project S: A New Blockchain Initiative</strong>
-                  <span>Main Project S article covering the staged evolution from early launches toward the future chain.</span>
+                  <strong>SakkemotoCoin – Official Fair Launch</strong>
+                  <span>The origin story of the community that powers the S-Project ecosystem.</span>
                 </div>
                 <div class="arrow">↗</div>
               </a>
 
-              <a class="blog-link" href="https://sakkemoto.com/project-s-governance-explained/" target="_blank" rel="noopener">
+              <a class="blog-link" href="https://sakkemoto.com/" target="_blank" rel="noopener">
                 <div>
-                  <strong>Understanding Project S Governance</strong>
-                  <span>Governance vision, ownership structure, and the move toward on-chain execution in 2027.</span>
+                  <strong>Sakkemoto Blog</strong>
+                  <span>Articles about the ecosystem, philosophy and future blockchain development.</span>
                 </div>
                 <div class="arrow">↗</div>
               </a>
 
-              <a class="blog-link" href="https://sakkemoto.com/beyond-the-coin/" target="_blank" rel="noopener">
+              <a class="blog-link" href="https://sakkemoto.com/category/blockchain/" target="_blank" rel="noopener">
                 <div>
-                  <strong>Beyond the Coin: The Sakkemoto 2027 Vision</strong>
-                  <span>Roadmap framing the fair launch phase, ecosystem growth, and longer-term vision.</span>
+                  <strong>Blockchain Vision Articles</strong>
+                  <span>Insights about blockchain infrastructure, innovation and the long-term roadmap.</span>
                 </div>
                 <div class="arrow">↗</div>
               </a>
 
-              <a class="blog-link" href="https://sakkemoto.com/tag/project-s/" target="_blank" rel="noopener">
+              <a class="blog-link" href="https://sakkemoto.com/category/crypto/" target="_blank" rel="noopener">
                 <div>
-                  <strong>Project S Blog Archive</strong>
-                  <span>Tag archive collecting Project S-related posts and updates in one place.</span>
+                  <strong>Crypto Ecosystem Updates</strong>
+                  <span>Updates, thoughts and ideas connected to the broader S-Project ecosystem.</span>
                 </div>
                 <div class="arrow">↗</div>
               </a>
@@ -1192,16 +1579,13 @@
           <div class="blog-card">
             <h3>Why these links matter</h3>
             <p style="margin-bottom:14px;">
-              These links give visitors more context than a normal teaser page. They show that the project already has
-              written vision, structure, and long-term thinking behind it.
+              These articles explain the philosophy behind the S-Project ecosystem.
             </p>
             <p style="margin-bottom:14px;">
-              For a coming soon page, this is useful because people can do three things immediately:
+              Visitors can explore the thinking behind the community-first model and the long-term blockchain vision.
             </p>
             <p>
-              <strong>1.</strong> Understand the bigger idea.<br>
-              <strong>2.</strong> Read the roadmap logic.<br>
-              <strong>3.</strong> Follow the community before later phases arrive.
+              The S-Project concept grows in phases: first the ecosystem, then the infrastructure.
             </p>
           </div>
         </div>
@@ -1255,9 +1639,9 @@
   </footer>
 
   <script>
-    // Set your countdown dates here
     const phase1Date = new Date("2026-12-01T00:00:00").getTime();
     const phase2Date = new Date("2027-11-01T00:00:00").getTime();
+    const progressPercent = 34;
 
     function updateTimer(targetDate, ids) {
       const now = new Date().getTime();
@@ -1298,7 +1682,13 @@
       });
     }
 
+    function setProgress() {
+      const fill = document.getElementById("progressFill");
+      fill.style.width = Math.max(0, Math.min(progressPercent, 100)) + "%";
+    }
+
     updateAllCountdowns();
+    setProgress();
     setInterval(updateAllCountdowns, 1000);
   </script>
 </body>
